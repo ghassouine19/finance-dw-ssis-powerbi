@@ -9,11 +9,11 @@
 **/bin/
 **/obj/
 
-# SSIS/SSAS user & temp (optionnel)
+# SSIS/SSAS user & temp
 *.dtproj.user
 *.asdatabase
 *.abf
 *.log
 
-# Power BI cache (optionnel)
+# Power BI cache
 **/*.pbi/
