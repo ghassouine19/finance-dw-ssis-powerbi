@@ -1,0 +1,71 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="3/2/2026 12:40:43 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-GASS"
+  DTS:CreatorName="DESKTOP-GASS\user"
+  DTS:DTSID="{5DC274BE-EF64-4F3B-8DDA-E952B5B43F51}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1008.3"
+  DTS:LocaleID="1036"
+  DTS:ObjectName="Package1"
+  DTS:PackageType="5"
+  DTS:VersionBuild="1"
+  DTS:VersionGUID="{23FF5F98-D95D-4B12-8921-D7B32F2C22F7}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DESKTOP-GASS\SQLEXPRESS_BI.FinanceDW]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{C712AFF1-152C-4215-80A2-2530B55AA3F4}"
+      DTS:ObjectName="DESKTOP-GASS\SQLEXPRESS_BI.FinanceDW">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=DESKTOP-GASS\SQLEXPRESS_BI;Initial Catalog=FinanceDW;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Application Name=SSIS-Package1-{C712AFF1-152C-4215-80A2-2530B55AA3F4}DESKTOP-GASS\SQLEXPRESS_BI.FinanceDW;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\SQL_Load_FactGL"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tâche d'exécution de requêtes SQL"
+      DTS:DTSID="{DDE8D7DE-C646-43E9-810A-397F7B14AB63}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL_Load_FactGL"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{C712AFF1-152C-4215-80A2-2530B55AA3F4}"
+          SQLTask:SqlStatementSource="/* pour éviter doublons si tu relances */&#xA;TRUNCATE TABLE dw.factGL;&#xA;&#xA;/* ACTUAL */&#xA;INSERT INTO dw.factGL (DateKey, CompanyKey, CostCenterKey, AccountKey, Scenario, Amount)&#xA;SELECT&#xA;    CONVERT(int, FORMAT(a.TxnDate, 'yyyyMMdd')) AS DateKey,&#xA;    c.CompanyKey,&#xA;    cc.CostCenterKey,&#xA;    ga.AccountKey,&#xA;    'ACTUAL' AS Scenario,&#xA;    a.Amount&#xA;FROM stg.gl_actuals a&#xA;JOIN dw.dimCompany c     ON c.CompanyCode = a.CompanyCode&#xA;JOIN dw.dimCostCenter cc ON cc.CostCenter = a.CostCenter&#xA;JOIN dw.dimGLAccount ga  ON ga.GLAccount  = a.GLAccount;&#xA;&#xA;/* BUDGET */&#xA;INSERT INTO dw.factGL (DateKey, CompanyKey, CostCenterKey, AccountKey, Scenario, Amount)&#xA;SELECT&#xA;    CONVERT(int, FORMAT(b.TxnDate, 'yyyyMMdd')) AS DateKey,&#xA;    c.CompanyKey,&#xA;    cc.CostCenterKey,&#xA;    ga.AccountKey,&#xA;    'BUDGET' AS Scenario,&#xA;    b.BudgetAmount&#xA;FROM stg.gl_budget b&#xA;JOIN dw.dimCompany c     ON c.CompanyCode = b.CompanyCode&#xA;JOIN dw.dimCostCenter cc ON cc.CostCenter = b.CostCenter&#xA;JOIN dw.dimGLAccount ga  ON ga.GLAccount  = b.GLAccount;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Cette section CDATA contient des informations sur la disposition du package. Elle comprend des informations telles que les coordonnées (x,y), la largeur et la hauteur.-->
+<!--Si vous modifiez manuellement cette section et commettez une erreur, vous pouvez la supprimer. -->
+<!--Le package pourra toujours se charger normalement, mais les informations de disposition précédente seront perdues et le concepteur réorganisera automatiquement les éléments sur l'aire de conception.-->
+<Objects
+  Version="8">
+  <!--Chaque nœud ci-dessous contiendra des propriétés qui n'affectent pas le comportement d'exécution.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="168,41.6"
+          Id="Package\SQL_Load_FactGL"
+          TopLeft="149.999991804362,82.3333327607976" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

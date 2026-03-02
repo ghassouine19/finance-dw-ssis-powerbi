@@ -1,0 +1,19 @@
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build outputs
+**/bin/
+**/obj/
+
+# SSIS/SSAS user & temp (optionnel)
+*.dtproj.user
+*.asdatabase
+*.abf
+*.log
+
+# Power BI cache (optionnel)
+**/*.pbi/

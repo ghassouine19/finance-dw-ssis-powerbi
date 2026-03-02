@@ -1,0 +1,807 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="3/2/2026 12:18:49 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-GASS"
+  DTS:CreatorName="DESKTOP-GASS\user"
+  DTS:DTSID="{3B79BC56-C042-48D4-A4AF-04F7A04A32E3}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1008.3"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="02_Load_Staging_Budget"
+  DTS:PackageType="5"
+  DTS:VersionBuild="2"
+  DTS:VersionGUID="{588F3F5D-5E23-41FB-9778-3CA0D3700254}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DESKTOP-GASS\SQLEXPRESS_BI.FinanceDW]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{04F690E4-A19A-4378-8533-557B2C2EB035}"
+      DTS:ObjectName="DESKTOP-GASS\SQLEXPRESS_BI.FinanceDW">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=DESKTOP-GASS\SQLEXPRESS_BI;Initial Catalog=FinanceDW;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Application Name=SSIS-02_Load_Staging_Budget-{04F690E4-A19A-4378-8533-557B2C2EB035}DESKTOP-GASS\SQLEXPRESS_BI.FinanceDW;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Gestionnaire de connexions de fichiers plats]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{D69B11DE-76CE-4B98-AEE3-CC482F65F26C}"
+      DTS:ObjectName="Gestionnaire de connexions de fichiers plats">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="C:\Users\user\Desktop\finance-bi\data\source\gl_budget.csv">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="TxnDate"
+              DTS:DTSID="{7526CB8F-51A1-4C5E-813E-EC840504EF2D}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="CompanyCode"
+              DTS:DTSID="{7DF8B750-D926-4FE0-A743-15C5B9586CF0}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="CostCenter"
+              DTS:DTSID="{3783947D-D770-42EE-ACF5-75AAD3B35320}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="GLAccount"
+              DTS:DTSID="{83CC233F-766E-418F-AAF6-D0607ACE453F}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="BudgetAmount"
+              DTS:DTSID="{2E0FE1A6-0440-4D5F-9A21-2DC9880F4DBB}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\DFT_Load_gl_budget_to_stg"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tâche de flux de données"
+      DTS:DTSID="{935F99A4-237F-42BA-AF49-47FCBE1DB98D}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DFT_Load_gl_budget_to_stg"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DFT_Load_gl_budget_to_stg\Conversion de données"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Conversion de données;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;0"
+              description="Conversion de données"
+              name="Conversion de données"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT_Load_gl_budget_to_stg\Conversion de données.Inputs[Entrée de conversion de données]"
+                  name="Entrée de conversion de données">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_Load_gl_budget_to_stg\Conversion de données.Inputs[Entrée de conversion de données].Columns[TxnDate]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="TxnDate"
+                      lineageId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie de source de fichier plat].Columns[TxnDate]" />
+                    <inputColumn
+                      refId="Package\DFT_Load_gl_budget_to_stg\Conversion de données.Inputs[Entrée de conversion de données].Columns[CompanyCode]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="CompanyCode"
+                      lineageId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie de source de fichier plat].Columns[CompanyCode]" />
+                    <inputColumn
+                      refId="Package\DFT_Load_gl_budget_to_stg\Conversion de données.Inputs[Entrée de conversion de données].Columns[CostCenter]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="CostCenter"
+                      lineageId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie de source de fichier plat].Columns[CostCenter]" />
+                    <inputColumn
+                      refId="Package\DFT_Load_gl_budget_to_stg\Conversion de données.Inputs[Entrée de conversion de données].Columns[GLAccount]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="GLAccount"
+                      lineageId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie de source de fichier plat].Columns[GLAccount]" />
+                    <inputColumn
+                      refId="Package\DFT_Load_gl_budget_to_stg\Conversion de données.Inputs[Entrée de conversion de données].Columns[BudgetAmount]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="BudgetAmount"
+                      lineageId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie de source de fichier plat].Columns[BudgetAmount]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_Load_gl_budget_to_stg\Conversion de données.Outputs[Sortie de conversion de données]"
+                  exclusionGroup="1"
+                  name="Sortie de conversion de données"
+                  synchronousInputId="Package\DFT_Load_gl_budget_to_stg\Conversion de données.Inputs[Entrée de conversion de données]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_Load_gl_budget_to_stg\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of TxnDate]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT_Load_gl_budget_to_stg\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of TxnDate]"
+                      name="Copy of TxnDate"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Spécifie la colonne d'entrée utilisée comme source de données pour la conversion."
+                          name="SourceInputColumnLineageID">#{Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie de source de fichier plat].Columns[TxnDate]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indique si la colonne utilise les routines d'analyse les plus rapides, avec des paramètres régionaux neutres."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT_Load_gl_budget_to_stg\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of CompanyCode]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\DFT_Load_gl_budget_to_stg\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of CompanyCode]"
+                      name="Copy of CompanyCode"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Spécifie la colonne d'entrée utilisée comme source de données pour la conversion."
+                          name="SourceInputColumnLineageID">#{Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie de source de fichier plat].Columns[CompanyCode]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indique si la colonne utilise les routines d'analyse les plus rapides, avec des paramètres régionaux neutres."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT_Load_gl_budget_to_stg\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of CostCenter]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\DFT_Load_gl_budget_to_stg\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of CostCenter]"
+                      name="Copy of CostCenter"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Spécifie la colonne d'entrée utilisée comme source de données pour la conversion."
+                          name="SourceInputColumnLineageID">#{Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie de source de fichier plat].Columns[CostCenter]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indique si la colonne utilise les routines d'analyse les plus rapides, avec des paramètres régionaux neutres."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT_Load_gl_budget_to_stg\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of GLAccount]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\DFT_Load_gl_budget_to_stg\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of GLAccount]"
+                      name="Copy of GLAccount"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Spécifie la colonne d'entrée utilisée comme source de données pour la conversion."
+                          name="SourceInputColumnLineageID">#{Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie de source de fichier plat].Columns[GLAccount]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indique si la colonne utilise les routines d'analyse les plus rapides, avec des paramètres régionaux neutres."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT_Load_gl_budget_to_stg\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of BudgetAmount]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT_Load_gl_budget_to_stg\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of BudgetAmount]"
+                      name="Copy of BudgetAmount"
+                      precision="18"
+                      scale="2"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Spécifie la colonne d'entrée utilisée comme source de données pour la conversion."
+                          name="SourceInputColumnLineageID">#{Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie de source de fichier plat].Columns[BudgetAmount]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indique si la colonne utilise les routines d'analyse les plus rapides, avec des paramètres régionaux neutres."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_Load_gl_budget_to_stg\Conversion de données.Outputs[Sortie d'erreur de conversion de données]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de conversion de données"
+                  synchronousInputId="Package\DFT_Load_gl_budget_to_stg\Conversion de données.Inputs[Entrée de conversion de données]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_Load_gl_budget_to_stg\Conversion de données.Outputs[Sortie d'erreur de conversion de données].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_Load_gl_budget_to_stg\Conversion de données.Outputs[Sortie d'erreur de conversion de données].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_Load_gl_budget_to_stg\Conversion de données.Outputs[Sortie d'erreur de conversion de données].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_Load_gl_budget_to_stg\Conversion de données.Outputs[Sortie d'erreur de conversion de données].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_Load_gl_budget_to_stg\Destination OLE DB"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destination OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;4"
+              description="Destination OLE DB"
+              name="Destination OLE DB"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Nombre de secondes avant l'expiration d'une commande.  Une valeur égale à 0 indique un délai d'expiration infini."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowset">[stg].[gl_budget]</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie la variable contenant le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Commande SQL à exécuter."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Force l'utilisation de la valeur de propriété DefaultCodePage lors de la description des données caractères."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le mode utilisé pour accéder à la base de données."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indique si les valeurs fournies pour les colonnes d'identité seront copiées à la destination. Si la valeur est définie à False, les valeurs des colonnes d'identité seront générées automatiquement à la destination. Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indique si les colonnes contenant la valeur NULL auront cette valeur NULL copiée à la destination. Si la valeur est définie à False, les colonnes contenant la valeur NULL auront leurs valeurs par défaut insérées à la destination. Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie les options à utiliser avec le chargement rapide.  Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie quand les validations sont émises pendant l'insertion des données.  Une valeur égale à 0 spécifie qu'une validation sera émise à la fin de l'insertion des données.  Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_Load_gl_budget_to_stg\Destination OLE DB.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-GASS\SQLEXPRESS_BI.FinanceDW]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-GASS\SQLEXPRESS_BI.FinanceDW]"
+                  description="Connexion OLE DB en cours d'exécution utilisée pour accéder à la base de données."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT_Load_gl_budget_to_stg\Destination OLE DB.Inputs[Entrée de destination OLE DB]"
+                  errorOrTruncationOperation="Insérer"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrée de destination OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_Load_gl_budget_to_stg\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[TxnDate]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="TxnDate"
+                      externalMetadataColumnId="Package\DFT_Load_gl_budget_to_stg\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[TxnDate]"
+                      lineageId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie de source de fichier plat].Columns[TxnDate]" />
+                    <inputColumn
+                      refId="Package\DFT_Load_gl_budget_to_stg\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[CompanyCode]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="CompanyCode"
+                      externalMetadataColumnId="Package\DFT_Load_gl_budget_to_stg\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[CompanyCode]"
+                      lineageId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie de source de fichier plat].Columns[CompanyCode]" />
+                    <inputColumn
+                      refId="Package\DFT_Load_gl_budget_to_stg\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[CostCenter]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="CostCenter"
+                      externalMetadataColumnId="Package\DFT_Load_gl_budget_to_stg\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[CostCenter]"
+                      lineageId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie de source de fichier plat].Columns[CostCenter]" />
+                    <inputColumn
+                      refId="Package\DFT_Load_gl_budget_to_stg\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[GLAccount]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="GLAccount"
+                      externalMetadataColumnId="Package\DFT_Load_gl_budget_to_stg\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[GLAccount]"
+                      lineageId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie de source de fichier plat].Columns[GLAccount]" />
+                    <inputColumn
+                      refId="Package\DFT_Load_gl_budget_to_stg\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[BudgetAmount]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="BudgetAmount"
+                      externalMetadataColumnId="Package\DFT_Load_gl_budget_to_stg\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[BudgetAmount]"
+                      lineageId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie de source de fichier plat].Columns[BudgetAmount]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT_Load_gl_budget_to_stg\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[TxnDate]"
+                      dataType="dbDate"
+                      name="TxnDate" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_Load_gl_budget_to_stg\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[CompanyCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="CompanyCode" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_Load_gl_budget_to_stg\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[CostCenter]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="CostCenter" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_Load_gl_budget_to_stg\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[GLAccount]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="GLAccount" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_Load_gl_budget_to_stg\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[BudgetAmount]"
+                      dataType="numeric"
+                      name="BudgetAmount"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_Load_gl_budget_to_stg\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[SourceFile]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="SourceFile" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_Load_gl_budget_to_stg\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[LoadedAt]"
+                      dataType="dbTimeStamp2"
+                      name="LoadedAt"
+                      scale="7" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_Load_gl_budget_to_stg\Destination OLE DB.Outputs[Sortie d'erreur de destination OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de destination OLE DB"
+                  synchronousInputId="Package\DFT_Load_gl_budget_to_stg\Destination OLE DB.Inputs[Entrée de destination OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_Load_gl_budget_to_stg\Destination OLE DB.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_Load_gl_budget_to_stg\Destination OLE DB.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_Load_gl_budget_to_stg\Destination OLE DB.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_Load_gl_budget_to_stg\Destination OLE DB.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget"
+              componentClassID="Microsoft.FlatFileSource"
+              contactInfo="Source du fichier plat;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;1"
+              description="Source du fichier plat"
+              localeId="1033"
+              name="FF_gl_budget"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Spécifie si les colonnes dont la longueur est zéro sont traitées comme des valeurs NULL."
+                  name="RetainNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie le nom d'une colonne de sortie contenant le nom du fichier. Si aucun nom n'est spécifié, aucune colonne de sortie contenant le nom du fichier ne sera générée."
+                  name="FileNameColumnName"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Connections[FlatFileConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Gestionnaire de connexions de fichiers plats]"
+                  connectionManagerRefId="Package.ConnectionManagers[Gestionnaire de connexions de fichiers plats]"
+                  name="FlatFileConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie de source de fichier plat]"
+                  name="Sortie de source de fichier plat">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie de source de fichier plat].Columns[TxnDate]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie de source de fichier plat].ExternalColumns[TxnDate]"
+                      length="50"
+                      lineageId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie de source de fichier plat].Columns[TxnDate]"
+                      name="TxnDate"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indique si la colonne utilise les routines d'analyse les plus rapides, avec des paramètres régionaux neutres."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indique si les données sont au format binaire."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie de source de fichier plat].Columns[CompanyCode]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie de source de fichier plat].ExternalColumns[CompanyCode]"
+                      length="50"
+                      lineageId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie de source de fichier plat].Columns[CompanyCode]"
+                      name="CompanyCode"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indique si la colonne utilise les routines d'analyse les plus rapides, avec des paramètres régionaux neutres."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indique si les données sont au format binaire."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie de source de fichier plat].Columns[CostCenter]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie de source de fichier plat].ExternalColumns[CostCenter]"
+                      length="50"
+                      lineageId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie de source de fichier plat].Columns[CostCenter]"
+                      name="CostCenter"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indique si la colonne utilise les routines d'analyse les plus rapides, avec des paramètres régionaux neutres."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indique si les données sont au format binaire."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie de source de fichier plat].Columns[GLAccount]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie de source de fichier plat].ExternalColumns[GLAccount]"
+                      length="50"
+                      lineageId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie de source de fichier plat].Columns[GLAccount]"
+                      name="GLAccount"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indique si la colonne utilise les routines d'analyse les plus rapides, avec des paramètres régionaux neutres."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indique si les données sont au format binaire."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie de source de fichier plat].Columns[BudgetAmount]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie de source de fichier plat].ExternalColumns[BudgetAmount]"
+                      length="50"
+                      lineageId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie de source de fichier plat].Columns[BudgetAmount]"
+                      name="BudgetAmount"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indique si la colonne utilise les routines d'analyse les plus rapides, avec des paramètres régionaux neutres."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indique si les données sont au format binaire."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie de source de fichier plat].ExternalColumns[TxnDate]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="TxnDate" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie de source de fichier plat].ExternalColumns[CompanyCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="CompanyCode" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie de source de fichier plat].ExternalColumns[CostCenter]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="CostCenter" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie de source de fichier plat].ExternalColumns[GLAccount]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="GLAccount" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie de source de fichier plat].ExternalColumns[BudgetAmount]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="BudgetAmount" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie d'erreur de source de fichier plat]"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de source de fichier plat">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie d'erreur de source de fichier plat].Columns[Colonne de sortie d'erreur de source de fichier plat]"
+                      codePage="1252"
+                      dataType="text"
+                      description="Colonne de sortie d'erreur de source de fichier plat"
+                      lineageId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie d'erreur de source de fichier plat].Columns[Colonne de sortie d'erreur de source de fichier plat]"
+                      name="Colonne de sortie d'erreur de source de fichier plat" />
+                    <outputColumn
+                      refId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie d'erreur de source de fichier plat].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie d'erreur de source de fichier plat].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie d'erreur de source de fichier plat].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie d'erreur de source de fichier plat].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DFT_Load_gl_budget_to_stg.Paths[Sortie de conversion de données]"
+              endId="Package\DFT_Load_gl_budget_to_stg\Destination OLE DB.Inputs[Entrée de destination OLE DB]"
+              name="Sortie de conversion de données"
+              startId="Package\DFT_Load_gl_budget_to_stg\Conversion de données.Outputs[Sortie de conversion de données]" />
+            <path
+              refId="Package\DFT_Load_gl_budget_to_stg.Paths[Sortie de source de fichier plat]"
+              endId="Package\DFT_Load_gl_budget_to_stg\Conversion de données.Inputs[Entrée de conversion de données]"
+              name="Sortie de source de fichier plat"
+              startId="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget.Outputs[Sortie de source de fichier plat]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Cette section CDATA contient des informations sur la disposition du package. Elle comprend des informations telles que les coordonnées (x,y), la largeur et la hauteur.-->
+<!--Si vous modifiez manuellement cette section et commettez une erreur, vous pouvez la supprimer. -->
+<!--Le package pourra toujours se charger normalement, mais les informations de disposition précédente seront perdues et le concepteur réorganisera automatiquement les éléments sur l'aire de conception.-->
+<Objects
+  Version="8">
+  <!--Chaque nœud ci-dessous contiendra des propriétés qui n'affectent pas le comportement d'exécution.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="212.8,41.6"
+          Id="Package\DFT_Load_gl_budget_to_stg"
+          TopLeft="68.3333295997648,49.3999996564786" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\DFT_Load_gl_budget_to_stg">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="142.4,41.6"
+          Id="Package\DFT_Load_gl_budget_to_stg\FF_gl_budget"
+          TopLeft="133.333326048322,89.2666660459174" />
+        <NodeLayout
+          Size="188,41.6"
+          Id="Package\DFT_Load_gl_budget_to_stg\Conversion de données"
+          TopLeft="103.333327687449,188.933332019514" />
+        <EdgeLayout
+          Id="Package\DFT_Load_gl_budget_to_stg.Paths[Sortie de source de fichier plat]"
+          TopLeft="200.933326867885,130.866666045917">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,58.066665973597"
+              Start="0,0"
+              End="0,50.566665973597">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,50.566665973597" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="171.2,41.6"
+          Id="Package\DFT_Load_gl_budget_to_stg\Destination OLE DB"
+          TopLeft="114.166660428875,288.599997993112" />
+        <EdgeLayout
+          Id="Package\DFT_Load_gl_budget_to_stg.Paths[Sortie de conversion de données]"
+          TopLeft="198.549994058162,230.533332019514">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,58.0666659735972"
+              Start="0,0"
+              End="0,50.5666659735972">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,50.5666659735972" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_Load_gl_budget_to_stg\Destination OLE DB">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
